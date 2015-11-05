@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:c="http://java.sun.com/jstl/core"
+>
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Controle - Pessoa</title>
+</h:head>
+<h:body>
+
+	<div class="header">
+		<ui:insert name="header">
+			<ui:include src="/Filtro/paginas/log/log.xhtml"></ui:include>
+		</ui:insert>
+	</div>
+	
+	<h:form id="Pessoa">
+		
+		<p:panel id="panel" footer="Detalhes da Pessoa" >
+		
+			<p:growl id="mensagens" showDetail="true" life="5000" autoUpdate="true" closable="true" />
+			<p:focus context="panel"/>
+			
+			<p:inputMask id="id" tabindex="1" placeholder="Id" value="#{mbPessoaFisica.pessoaFisica.id}" title="Id" required="true" requiredMessage="Id Obrigatório" mask="99" >
+						<p:tooltip showEvent="focus" hideEvent="blur"></p:tooltip>
+						<f:validator validatorId="validarNumero" />
+					</p:inputMask>
+					<p:calendar id="nascimento" tabindex="2" placeholder="Nascimento*" value="#{mbPessoaFisica.pessoaFisica.nascimento}" title="Nascimento" required="true" requiredMessage="Data Obrigatória" pattern="dd/MM/yyyy" ></p:calendar>
+					<p:inputText id="nome" tabindex="3" placeholder="Nome*" value="#{mbPessoaFisica.pessoaFisica.nome}" title="Nome" required="true" requiredMessage="Nome Obrigatório" >
+						<f:validator validatorId="validarNome" />
+					</p:inputText>
+			<p:commandButton tabindex="8" value="Inserir" id="inserir" actionListener="#{mbPessoa.inserir}" icon="ui-icon-disk" />
+		</p:panel>
+		
+    </h:form>
+	
+</h:body>
+</html>

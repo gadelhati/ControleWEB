@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:c="http://java.sun.com/jstl/core"
+>
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Controle - Recurso</title>
+</h:head>
+<h:body>
+
+	<div class="header">
+		<ui:insert name="header">
+			<ui:include src="/Filtro/paginas/log/log.xhtml"></ui:include>
+		</ui:insert>
+	</div>
+	
+	<h:form id="Recurso">
+		
+		<p:tabView id="abas" >
+		
+			<p:tab title="Inserir" >
+				
+				<p:panel id="panel" header="Recurso" footer="Detalhes da Recurso" >
+				<h:panelGrid columns="1">
+				
+					<p:growl id="mensagens" showDetail="false" life="10000" autoUpdate="true" closable="true" />
+					<p:focus context="panel"/>
+					
+					<p:inputMask id="id" tabindex="1" placeholder="Id" value="#{mbRecurso.recurso.id}" title="Id" required="true" requiredMessage="Id Obrigatório" mask="99" >
+						<p:tooltip showEvent="focus" hideEvent="blur"></p:tooltip>
+						<f:validator validatorId="validarNumero" />
+					</p:inputMask>
+					<h:panelGrid columns="1" style="margin-bottom: 10px">
+						<h:outputText id="valor" value="Foco Total %#{mbRecurso.recurso.focoTotal}" />
+						<h:inputHidden id="focoTotal" value="#{mbRecurso.recurso.focoTotal}" />
+						<p:slider for="focoTotal" tabindex="2" display="valor" style="width: 200px" displayTemplate="Foco Total %{value}" />
+					</h:panelGrid>
+					<p:calendar id="horasDia" tabindex="3" placeholder="Horas por dia" value="#{mbRecurso.recurso.horasDia}" title="Horas por Dia" required="true" requiredMessage="Quantidade de Horas por dia, Obrigatória" pattern="HH:mm" timeOnly="true" />
+					<p:spinner id="qtdMin" tabindex="4" value="#{mbRecurso.recurso.qtdMin}" min="0" max="30" title="Quantidade Mínima" required="true" requiredMessage="Quantidade Mínima de Horas por dia, Obrigatória" >
+						<f:validateLength minimum="0" maximum="7" />
+						<p:clientValidator event="keyup"/>
+					</p:spinner>
+					<p:spinner id="qtdMax" tabindex="5" value="#{mbRecurso.recurso.qtdMax}" min="0" max="30" title="Quantidade Máxima" required="true" requiredMessage="Quantidade Máxima de Horas por dia, Obrigatória" >
+						<f:validateLength minimum="0" maximum="7" />
+						<p:clientValidator event="keyup"/>
+					</p:spinner>
+					<p:outputLabel value="* campos obrigatórios" />
+					
+					<p:toolbar id="ferramentas" >
+						<f:facet name="left">
+							<p:commandButton tabindex="6" value="Limpar" id="limpar" type="reset" icon="ui-icon-refresh"/>
+							<p:commandButton tabindex="7" value="Inserir" id="inserir" actionListener="#{mbRecurso.inserir}" icon="ui-icon-disk" update="tabela" >
+								<p:confirm header="Confirmação" message="Tem certeza?" />
+							</p:commandButton>
+							<p:commandButton tabindex="8" value="Alterar" id="alterar" actionListener="#{mbRecurso.alterar}" icon="ui-icon-disk" update="tabela" >
+								<p:confirm header="Confirmação" message="Tem certeza?" />
+							</p:commandButton>
+							<p:commandButton tabindex="9" value="Excluir" id="excluir" actionListener="#{mbRecurso.excluir}" icon="ui-icon-disk" update="tabela" >
+								<p:confirm header="Confirmação" message="Tem certeza?" />
+							</p:commandButton>
+							<p:confirmDialog global="true" showEffect="puff" hideEffect="puff">
+								<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</f:facet>
+						<f:facet name="right">
+							<p:commandButton tabindex="10" value="Imprimir" type="button" icon="ui-icon-print" >
+								<p:printer target="panel" />
+							</p:commandButton>
+						</f:facet>
+					</p:toolbar>
+					
+				</h:panelGrid>
+				</p:panel>
+			</p:tab>
+			
+			<p:tab title="Tabela" >
+				<p:dataTable
+					id="tabela"
+					var="item"
+					value="#{mbRecurso.lista}"
+					paginator="true"
+					rows="5"
+					emptyMesage="Não há registros na tabela"
+					paginatorTempalte="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}"
+					rowsPerPageTemplate="5,10"
+				>
+	<!-- 
+	selectionMode="single"
+	selection="#{mbRecurso.recurso}"
+	rowKey="#{item.id}"
+	 -->
+					<f:facet name="header">
+						#{fn:length(mbRecurso.lista)} Recurso(s)
+						<p:graphicImage value="${pageContext.request.contextPath}/Filtro/imagens/estrutura.png" />
+					</f:facet>
+	<!-- 
+	<p:ajax event="rowSelect" listener="#{mbRecurso.onRowSelect}" />
+	<p:ajax event="rowUnselect" listener="#{mbRecurso.onRowUnselect}" />
+	 -->
+					<p:column headerText="Id" >
+						<h:outputText value="#{item.id}" ></h:outputText>
+					</p:column>
+					<p:column headerText="Nome" >
+						<h:outputText value="#{item.focoTotal}" ></h:outputText>
+					</p:column>
+					<f:facet name="footer">
+						<p:clock />
+					</f:facet>
+				</p:dataTable>
+			</p:tab>
+			
+        </p:tabView>
+		
+    </h:form>
+	
+</h:body>
+</html>
