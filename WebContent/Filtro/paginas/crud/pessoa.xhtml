@@ -24,7 +24,55 @@
 	<h:form id="PessoaFisica">
 		
 		<p:tabView id="abas" >
-		
+			<p:tab title="Tabela" >
+				<p:dataTable
+					id="tabela"
+					var="item"
+					value="#{mbPessoa.lista}"
+					emptyMesage="Não há registros na tabela"
+					scrollable="true"
+					scrollHeight="150"
+					resizableColumns="true"
+					sortMode="multiple"
+					draggableColumns="true"
+					draggableRows="true"
+					widgetVar="pessoaTabela"
+					selectionMode="single"
+					selection="#{mbPessoa.pessoa}"
+					rowKey="#{item.id}"
+					reflow="true"
+				>
+	<!-- 
+	paginator="true"
+	rows="5"
+	paginatorTempalte="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	rowsPerPageTemplate="5,10,15"
+	 -->
+					<f:facet name="header">
+						<p:inputText id="globalFilter" onkeyup="PF('pessoaTabela').filter()" placeholder="Busca Geral"/>
+						<!-- 
+						<p:commandButton id="toggler" type="button" value="Colunas" icon="ui-icon-calculator" style="float:right" />
+						<p:columnToggler datasource="tabela" trigger="toggler" />
+						<p:graphicImage value="${pageContext.request.contextPath}/Filtro/imagens/estrutura.png" />
+						#{fn:length(mbPessoa.lista)} Pessoa(s)
+						 -->
+					</f:facet>
+	<!-- 
+	<p:ajax event="rowSelect" listener="#{mbPessoa.onRowSelect}" />
+	<p:ajax event="rowUnselect" listener="#{mbPessoa.onRowUnselect}" />
+	 -->
+					<p:column headerText="Id" sortBy="#{item.id}" filterBy="#{item.id}" >
+						<h:outputText value="#{item.id}" ></h:outputText>
+					</p:column>
+					<p:column headerText="Nome" sortBy="#{item.nome}" filterBy="#{item.nome}" >
+						<h:outputText value="#{item.nome}" ></h:outputText>
+					</p:column>
+					<f:facet name="footer">
+						<!-- <p:clock /> -->
+					</f:facet>
+				</p:dataTable>
+			</p:tab>
+			
 			<p:tab title="Inserir" >
 				
 				<p:panel id="panel" header="Pessoa" footer="Detalhes da Pessoa" >
@@ -73,48 +121,6 @@
 					
 				</h:panelGrid>
 				</p:panel>
-			</p:tab>
-			
-			<p:tab title="Tabela" >
-				<p:dataTable
-					id="tabela"
-					var="item"
-					value="#{mbPessoa.lista}"
-					paginator="true"
-					rows="5"
-					emptyMesage="Não há registros na tabela"
-					paginatorTempalte="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					rowsPerPageTemplate="5,10,15"
-					resizableColumns="true"
-					sortMode="multiple"
-					draggableColumns="true"
-					draggableRows="true"
-					
-					widgetVar="pessoaTabela"
-					
-					selectionMode="single"
-					selection="#{mbPessoa.pessoa}"
-					rowKey="#{item.id}"
-					reflow="true"
-				>
-					<f:facet name="header">
-						#{fn:length(mbPessoa.lista)} Pessoa(s)
-						<p:graphicImage value="${pageContext.request.contextPath}/Filtro/imagens/estrutura.png" />
-					</f:facet>
-	<!-- 
-	<p:ajax event="rowSelect" listener="#{mbPessoa.onRowSelect}" />
-	<p:ajax event="rowUnselect" listener="#{mbPessoa.onRowUnselect}" />
-	 -->
-					<p:column headerText="Id" >
-						<h:outputText value="#{item.id}" ></h:outputText>
-					</p:column>
-					<p:column headerText="Nome" >
-						<h:outputText value="#{item.nome}" ></h:outputText>
-					</p:column>
-					<f:facet name="footer">
-						<p:clock />
-					</f:facet>
-				</p:dataTable>
 			</p:tab>
 			
         </p:tabView>
