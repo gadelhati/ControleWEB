@@ -107,8 +107,8 @@ public class WSPessoa {
 	}
 	@POST
 	@Path(value = "/forma")
-	public void forma(@FormParam("email") Long id, @FormParam("nascimento") Date nascimento, @FormParam("nome") String nome, @FormParam("sexo") String sexo) {
-		Pessoa objeto = new Pessoa(id, nascimento, nome, sexo);
+	public void forma(@FormParam("id") Long id, @FormParam("nascimento") Date nascimento, @FormParam("nome") String nome) {
+		Pessoa objeto = new Pessoa(id, nascimento, nome);
 		log.info("web: inserindo"+objeto.toString());
 		dao.inserir(objeto);
 		//return Response.status(200);
