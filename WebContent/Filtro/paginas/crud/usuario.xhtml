@@ -37,28 +37,14 @@
 						<p:tooltip showEvent="focus" hideEvent="blur"></p:tooltip>
 						<f:validator validatorId="validarNumero" />
 					</p:inputMask>
-					<p:calendar id="nascimento" tabindex="2" placeholder="Nascimento*" value="#{mbUsuario.usuario.nascimento}" title="Nascimento" required="true" requiredMessage="Data Obrigatória" pattern="dd/MM/yyyy" ></p:calendar>
-					<p:inputText id="nome" tabindex="3" placeholder="Nome*" value="#{mbUsuario.usuario.nome}" title="Nome" required="true" requiredMessage="Nome Obrigatório" >
-						<f:validator validatorId="validarNome" />
-					</p:inputText>
-					<p:selectOneButton id="sexo" value="#{mbUsuario.usuario.sexo}" required="true"  requiredMessage="Sexo Obrigatório" >
-						<f:selectItem itemLabel="Masculino" itemValue="masculino" />
-						<f:selectItem itemLabel="Feminino" itemValue="feminino" />
-					</p:selectOneButton>
-					
-					<p:inputMask id="rg" tabindex="5" placeholder="Registro Geral*" value="#{mbUsuario.usuario.rg}" title="Registro Geral" required="true" requiredMessage="RG Obrigatório" mask="9999999*">
-						<f:validator validatorId="validarRG" />
-					</p:inputMask>
-					<p:inputMask id="cpf" tabindex="6" placeholder="CPF*" value="#{mbUsuario.usuario.cpf}" title="CPF" required="true" requiredMessage="CPF Obrigatório" mask="999.999.999-99">
-						<f:validator validatorId="validarCPF" />
-					</p:inputMask>
-					
+					<p:calendar id="cadastro" tabindex="2" placeholder="Cadastro*" value="#{mbUsuario.usuario.cadastro}" title="Cadastro" required="true" requiredMessage="Data Obrigatória" pattern="dd/MM/yyyy" ></p:calendar>
 					<p:inputText id="apelido" tabindex="7" placeholder="Apelido" value="#{mbUsuario.usuario.apelido}" title="Apelido" >
 						<f:validator validatorId="validarNome" />
 					</p:inputText>
 					<p:inputText id="email" tabindex="8" placeholder="E-mail" value="#{mbUsuario.usuario.email}" title="E-mail" required="true" requiredMessage="E-mail Obrigatório" >
 						<f:validator validatorId="validarEmail"></f:validator>
 					</p:inputText>
+					
 					<p:password id="senha" match="senha2" tabindex="9" placeholder="Senha*" value="#{mbUsuario.usuario.senha}" required="true" feedback="true" />
 					<p:password id="senha2" tabindex="10" placeholder="Confirmar Senha*" value="#{mbUsuario.usuario.senha}" required="true" feedback="true" />
 					<p:selectOneMenu id="nivelDeAcesso" tabindex="11" value="#{mbUsuario.usuario.nivelDeAcesso}" >
@@ -66,10 +52,6 @@
 						<f:selectItem itemLabel="Gerente" itemValue="gerente" />
 						<f:selectItem itemLabel="Gestor" itemValue="gestor" />
 						<f:selectItem itemLabel="Administrador" itemValue="administrador" />
-					</p:selectOneMenu>
-					<p:selectOneMenu id="recurso" tabindex="12" value="#{mbUsuario.usuario.recurso}" >
-						<f:selectItem itemLabel="Selecione" itemValue="" />
-						<f:selectItems value="#{mbRecurso.lista}" var="objeto" itemLabel="#{objeto.id}" itemValue="#{objeto}" />
 					</p:selectOneMenu>
 					<p:outputLabel value="* campos obrigatórios" />
 					
@@ -129,10 +111,7 @@
 						<h:outputText value="#{item.id}" ></h:outputText>
 					</p:column>
 					<p:column headerText="Nome" >
-						<h:outputText value="#{item.nome}" ></h:outputText>
-					</p:column>
-					<p:column headerText="Id do Recurso" >
-						<h:outputText value="#{item.recurso.id}" ></h:outputText>
+						<h:outputText value="#{item.apelido}" ></h:outputText>
 					</p:column>
 					<f:facet name="footer">
 						<p:clock />

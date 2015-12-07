@@ -242,4 +242,17 @@ public class MBUsuario implements Serializable {
 			throw new FacesException("Error in writing captured image.", e);
 		}
 	}
+	
+	/*
+	public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException {
+        Document pdf = (Document) document;
+        pdf.open();
+        pdf.setPageSize(PageSize.A4);
+ 
+        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        String logo = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "demo" + File.separator + "images" + File.separator + "prime_logo.png";
+         
+        pdf.add(Image.getInstance(logo));
+    }
+	*/
 }

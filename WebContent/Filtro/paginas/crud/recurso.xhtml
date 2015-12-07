@@ -37,20 +37,8 @@
 						<p:tooltip showEvent="focus" hideEvent="blur"></p:tooltip>
 						<f:validator validatorId="validarNumero" />
 					</p:inputMask>
-					<h:panelGrid columns="1" style="margin-bottom: 10px">
-						<h:outputText id="valor" value="Foco Total %#{mbRecurso.recurso.focoTotal}" />
-						<h:inputHidden id="focoTotal" value="#{mbRecurso.recurso.focoTotal}" />
-						<p:slider for="focoTotal" tabindex="2" display="valor" style="width: 200px" displayTemplate="Foco Total %{value}" />
-					</h:panelGrid>
-					<p:calendar id="horasDia" tabindex="3" placeholder="Horas por dia" value="#{mbRecurso.recurso.horasDia}" title="Horas por Dia" required="true" requiredMessage="Quantidade de Horas por dia, Obrigatória" pattern="HH:mm" timeOnly="true" />
-					<p:spinner id="qtdMin" tabindex="4" value="#{mbRecurso.recurso.qtdMin}" min="0" max="30" title="Quantidade Mínima" required="true" requiredMessage="Quantidade Mínima de Horas por dia, Obrigatória" >
-						<f:validateLength minimum="0" maximum="7" />
-						<p:clientValidator event="keyup"/>
-					</p:spinner>
-					<p:spinner id="qtdMax" tabindex="5" value="#{mbRecurso.recurso.qtdMax}" min="0" max="30" title="Quantidade Máxima" required="true" requiredMessage="Quantidade Máxima de Horas por dia, Obrigatória" >
-						<f:validateLength minimum="0" maximum="7" />
-						<p:clientValidator event="keyup"/>
-					</p:spinner>
+					<p:calendar id="aposentadoria" tabindex="2" placeholder="Aposentadoria" value="#{mbRecurso.recurso.aposentadoria}" title="Aposentadoria" required="true" requiredMessage="Data Obrigatória" pattern="dd/MM/yyyy" ></p:calendar>
+					<p:calendar id="depreciacao" tabindex="3" placeholder="Depreciação" value="#{mbRecurso.recurso.depreciacao}" title="Depreciação" required="true" requiredMessage="Data Obrigatória" pattern="dd/MM/yyyy" ></p:calendar>
 					<p:outputLabel value="* campos obrigatórios" />
 					
 					<p:toolbar id="ferramentas" >
@@ -108,8 +96,8 @@
 					<p:column headerText="Id" >
 						<h:outputText value="#{item.id}" ></h:outputText>
 					</p:column>
-					<p:column headerText="Nome" >
-						<h:outputText value="#{item.focoTotal}" ></h:outputText>
+					<p:column headerText="Interesse" >
+						<h:outputText value="#{item.interesse}" ></h:outputText>
 					</p:column>
 					<f:facet name="footer">
 						<p:clock />

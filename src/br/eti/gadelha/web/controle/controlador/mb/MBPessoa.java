@@ -5,7 +5,9 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -14,9 +16,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-//import com.lowagie.text.BadElementException;
-//import com.lowagie.text.Document;
-//import com.lowagie.text.DocumentException;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
+
 import br.eti.gadelha.ejb.controle.interfaces.local.DAOLocalPessoa;
 import br.eti.gadelha.ejb.controle.modelo.oque.quem.Pessoa;
 
@@ -34,6 +37,7 @@ public class MBPessoa implements Serializable {
 	@EJB private DAOLocalPessoa daoPessoa;
 	private Pessoa pessoa;
 	private List<Pessoa> lista;
+	private List<Pessoa> selecionados;
     
 	public MBPessoa() {
 		super();
@@ -42,20 +46,10 @@ public class MBPessoa implements Serializable {
 	public void init() {
 		this.pessoa = new Pessoa();
 		this.lista = new ArrayList<>();
+		this.selecionados = new ArrayList<>();
 		listar();
 	}
-	/*
-	public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException {
-        Document pdf = (Document) document;
-        pdf.open();
-        pdf.setPageSize(PageSize.A4);
- 
-        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-        String logo = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "demo" + File.separator + "images" + File.separator + "prime_logo.png";
-         
-        pdf.add(Image.getInstance(logo));
-    }
-	*/
+	
 	//VALIDANDO A SESSÃO
 	public String logIn() {
 		try {
@@ -87,20 +81,19 @@ public class MBPessoa implements Serializable {
   		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
   		return "/index.xhtml";
   	}
-  	
+  	/*
   	public String in() throws IOException{
   		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("pessoa", pessoa);
   		return "/Filtro/paginas/crud/inserir.xhtml";
   	}
-	
+	*/
 	//CRUD
 	public void alterar() {
 		if(consultar()){
 			daoPessoa.alterar(pessoa);
 			listar();
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado"+pessoa));
-			limpar();
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado"+pessoa));
+			//limpar();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado"));
 			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Manutenção", "Alterado"));
 			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Manutenção", "Alterado"));
 		}
@@ -123,9 +116,8 @@ public class MBPessoa implements Serializable {
 		if(consultar()) {
 			daoPessoa.excluir(pessoa);
 			listar();
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Excluído"+pessoa));
 			limpar();
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Excluído"+pessoa));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Excluído"));
 		}
 	}
 	public void inserir() {
@@ -196,6 +188,9 @@ public class MBPessoa implements Serializable {
 	public List<Pessoa> getLista() {
 		return lista;
 	}
+	public List<Pessoa> getSelecionados() {
+		return selecionados;
+	}
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
@@ -205,8 +200,21 @@ public class MBPessoa implements Serializable {
 	public void setLista(List<Pessoa> lista) {
 		this.lista = lista;
 	}
+	public void setSelecionados(List<Pessoa> selecionados) {
+		this.selecionados = selecionados;
+	}
 	@Override
 	public String toString() {
-		return "MBPessoa [daoPessoa=" + daoPessoa + ", pessoa=" + pessoa + ", lista=" + lista + "]";
+		return "MBPessoa [daoPessoa=" + daoPessoa + ", pessoa=" + pessoa + ", lista=" + lista + ",selecionados=" + selecionados + "]";
 	}
+	
+	public void onRowSelect(SelectEvent event) {}
+	public void onRowUnselect(UnselectEvent event) {}
+	public void onRowDblClckSelect(final SelectEvent event) {}
+	
+	public void viewCars() {
+        Map<String,Object> options = new HashMap<String, Object>();
+        options.put("resizable", false);
+        RequestContext.getCurrentInstance().openDialog("viewCars", options, null);
+    }
 }

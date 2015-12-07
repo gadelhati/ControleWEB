@@ -41,10 +41,6 @@
 					<p:inputText id="nome" tabindex="3" placeholder="Nome*" value="#{mbPessoaFisica.pessoaFisica.nome}" title="Nome" required="true" requiredMessage="Nome Obrigatório" >
 						<f:validator validatorId="validarNome" />
 					</p:inputText>
-					<p:selectOneButton id="sexo" value="#{mbPessoaFisica.pessoaFisica.sexo}" required="true"  requiredMessage="Sexo Obrigatório" >
-						<f:selectItem itemLabel="Masculino" itemValue="masculino" />
-						<f:selectItem itemLabel="Feminino" itemValue="feminino" />
-					</p:selectOneButton>
 					
 					<p:inputMask id="rg" tabindex="5" placeholder="Registro Geral*" value="#{mbPessoaFisica.pessoaFisica.rg}" title="Registro Geral" required="true" requiredMessage="RG Obrigatório" mask="9999999*">
 						<f:validator validatorId="validarRG" />
@@ -52,6 +48,10 @@
 					<p:inputMask id="cpf" tabindex="6" placeholder="CPF*" value="#{mbPessoaFisica.pessoaFisica.cpf}" title="CPF" required="true" requiredMessage="CPF Obrigatório" mask="999.999.999-99">
 						<f:validator validatorId="validarCPF" />
 					</p:inputMask>
+					<p:selectOneButton id="sexo" value="#{mbPessoaFisica.pessoaFisica.sexo}" required="true"  requiredMessage="Sexo Obrigatório" >
+						<f:selectItem itemLabel="Masculino" itemValue="masculino" />
+						<f:selectItem itemLabel="Feminino" itemValue="feminino" />
+					</p:selectOneButton>
 					<p:outputLabel value="* campos obrigatórios" />
 					
 					<p:toolbar id="ferramentas" >
@@ -87,25 +87,19 @@
 					id="tabela"
 					var="item"
 					value="#{mbPessoaFisica.lista}"
+					emptyMesage="Não há registros na tabela"
+					
 					paginator="true"
 					rows="5"
-					emptyMesage="Não há registros na tabela"
 					paginatorTempalte="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}"
 					rowsPerPageTemplate="5,10,15"
 				>
-	<!-- 
-	selectionMode="single"
-	selection="#{mbPessoaFisica.pessoaFisica}"
-	rowKey="#{item.id}"
-	 -->
+				
 					<f:facet name="header">
 						#{fn:length(mbPessoaFisica.lista)} Pessoa Física(s)
 						<p:graphicImage value="${pageContext.request.contextPath}/Filtro/imagens/estrutura.png" />
 					</f:facet>
-	<!-- 
-	<p:ajax event="rowSelect" listener="#{mbPessoaFisica.onRowSelect}" />
-	<p:ajax event="rowUnselect" listener="#{mbPessoaFisica.onRowUnselect}" />
-	 -->
+					
 					<p:column headerText="Id" >
 						<h:outputText value="#{item.id}" ></h:outputText>
 					</p:column>
