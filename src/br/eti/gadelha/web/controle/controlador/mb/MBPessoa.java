@@ -99,6 +99,11 @@ public class MBPessoa implements Serializable {
 		}
 	}
 	public Boolean consultar() {
+		/*
+		URL url = getClass().getResource("/Filtro/sons/cartoon001.wav");
+		AudioClip audio = Applet.newAudioClip(url);
+		audio.play();
+		*/
 		if(validar()) {
 			if(autenticar()) {
 				listar();
@@ -207,7 +212,7 @@ public class MBPessoa implements Serializable {
 	public String toString() {
 		return "MBPessoa [daoPessoa=" + daoPessoa + ", pessoa=" + pessoa + ", lista=" + lista + ",selecionados=" + selecionados + "]";
 	}
-	
+	/*
 	public void onRowSelect(SelectEvent event) {}
 	public void onRowUnselect(UnselectEvent event) {}
 	public void onRowDblClckSelect(final SelectEvent event) {}
@@ -217,4 +222,5 @@ public class MBPessoa implements Serializable {
         options.put("resizable", false);
         RequestContext.getCurrentInstance().openDialog("viewCars", options, null);
     }
+    */
 }

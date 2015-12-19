@@ -20,14 +20,99 @@
 			<ui:include src="/Filtro/paginas/log/log.xhtml"></ui:include>
 		</ui:insert>
 	</div>
-	
+	<!-- 
+				
+				 -->
 	<h:form id="Pessoa">
+		<!-- 
 		<p:panel id="panel" header="Pessoa" footer="Detalhes da Pessoa" >
+		 -->
 			<p:growl id="mensagens" showDetail="false" life="5000" autoUpdate="true" closable="true" />
 			
-			<p:commandButton process="tabela" update=":Pessoa:detalhes" icon="ui-icon-search" value="View" oncomplete="PF('dialogo').show()" />
+			<p:dataTable
+				id="tabela"
+				var="item"
+				value="#{mbPessoa.lista}"
+				emptyMesage="Não há registros na tabela"
+				
+				scrollable="true"
+				scrollHeight="250"
+				
+				sortMode="multiple"
+				resizableColumns="true"
+				draggableColumns="true"
+				draggableRows="true"
+				reflow="true"
+				
+				selectionMode="single"
+				selection="#{mbPessoa.pessoa}"
+				rowKey="#{item.id}"
+			>
+				<!-- 
+				widgetVar="filtro"
+				filteredValue="#{mbPessoa.selecionados}"
+				
+				paginator="true"
+				rows="10"
+				paginatorTempalte="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15"
+				 -->
+				<!-- 
+				<p:ajax event="rowSelect" listener="#{mbPessoa.onRowSelect}" />
+				<p:ajax event="rowUnselect" listener="#{mbPessoa.onRowUnselect}" />
+				 -->
+				<!-- 
+				<p:ajax event="rowSelect" listener="#{mbPessoa.onRowSelect}" oncomplete="PF('dialogo').show()" />
+				<p:ajax event="rowDblselect" listener="#{mbPessoa.onRowDblClckSelect}" oncomplete="PF('dialogo').show()" />
+				 -->
+				<!-- 
+				<f:facet name="header">
+					<p:commandButton id="toggler" type="button" value="Colunas" icon="ui-icon-calculator" style="float:right" />
+					<p:columnToggler datasource="tabela" trigger="toggler" />
+					<p:graphicImage value="${pageContext.request.contextPath}/Filtro/imagens/estrutura.png" />
+					#{fn:length(mbPessoa.lista)} Pessoa(s)
+				</f:facet>
+				 -->
+				<f:facet name="footer">
+					<p:commandButton process="tabela" update=":Pessoa:detalhes" icon="ui-icon-search" value="CRUD" oncomplete="PF('dialogo').show()" rendered="#{mbPessoa.pessoa!=null}" />
+					<!-- 
+					<h:commandLink>
+						<p:graphicImage name="/demo/images/excel.png" />
+						<p:dataExporter type="xls" target="tbl" fileName="cars" pageOnly="true"/>
+					</h:commandLink>
+					<h:commandLink>
+						<p:graphicImage name="/demo/images/pdf.png" />
+						<p:dataExporter type="pdf" target="tbl" fileName="cars" pageOnly="true" />
+					</h:commandLink>
+					 -->
+				</f:facet>
+				<p:column style="width:16px">
+					<p:rowToggler />
+				</p:column>
+				<p:rowExpansion>
+					<p:panelGrid  columns="2" columnClasses="label,value" >
+						<h:outputText value="Id" />
+						<h:outputText value="#{item.id}" />
+						<h:outputText value="Nacimento" />
+						<h:outputText value="#{item.nascimento}" />
+ 					</p:panelGrid>
+				</p:rowExpansion>
+				
+				<p:column headerText="Id" sortBy="#{item.id}" ><!-- filterBy="#{item.id}" filterMatchMode="contains"  -->
+					<h:outputText value="#{item.id}" ></h:outputText>
+				</p:column>
+				<p:column headerText="Nome" sortBy="#{item.nome}" ><!-- filterBy="#{item.nome}" filterMatchMode="contains"  -->
+					<h:outputText value="#{item.nome}" ></h:outputText>
+				</p:column>
+				
+			</p:dataTable>
 			
 			<p:dialog header="Informações de Pessoa" widgetVar="dialogo" modal="true" showEffect="puff" hideEffect="puff" resizable="false">
+				<!-- 
+				<p:media value="Filtro/sons/Kalimba.mp3" width="250" height="20" player="quicktime" visable="false" >
+					<f:param name="autoPlay" value="false" />
+				</p:media>
+				 -->
 				<p:outputPanel id="detalhes" style="text-align:center;">
 					<p:panelGrid  columns="1" rendered="#{not empty mbPessoa.pessoa}" columnClasses="label,value">
 						<p:inputMask id="id" tabindex="1" placeholder="Id" value="#{mbPessoa.pessoa.id}" title="Id" required="true" requiredMessage="Id Obrigatório" mask="99" >
@@ -41,7 +126,7 @@
 					</p:panelGrid>
 				</p:outputPanel>
 				
-				<p:commandButton tabindex="8" value="Inserir" id="inserir" actionListener="#{mbPessoa.inserir}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" >
+				<p:commandButton tabindex="8" value="Inserir" id="inserir" actionListener="#{mbPessoa.inserir}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" disabled="#{mbPessoa.pessoa!=null?true:false}" >
 					<!-- <p:confirm header="Confirmação" message="Tem certeza?" /> -->
 				</p:commandButton>
 				<p:commandButton tabindex="9" value="Alterar" id="alterar" actionListener="#{mbPessoa.alterar}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" >
@@ -57,63 +142,9 @@
 				</p:confirmDialog>
 				 -->
 			</p:dialog>
-			
-			<p:dataTable
-				id="tabela"
-				var="item"
-				value="#{mbPessoa.lista}"
-				emptyMesage="Não há registros na tabela"
-				
-				paginator="true"
-				rows="10"
-				paginatorTempalte="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="5,10,15"
-				
-				sortMode="multiple"
-				resizableColumns="true"
-				draggableColumns="true"
-				draggableRows="true"
-				reflow="true"
-				
-				selectionMode="single"
-				selection="#{mbPessoa.pessoa}"
-				rowKey="#{item.id}"
-			>
-				<!-- 
-				scrollable="true"
-				scrollHeight="150"
-				
-				filteredValue="#{mbPessoa.selecionados}"
-				 -->
-				<!-- 
-				<f:facet name="header">
-					<p:commandButton id="toggler" type="button" value="Colunas" icon="ui-icon-calculator" style="float:right" />
-					<p:columnToggler datasource="tabela" trigger="toggler" />
-					<p:graphicImage value="${pageContext.request.contextPath}/Filtro/imagens/estrutura.png" />
-					#{fn:length(mbPessoa.lista)} Pessoa(s)
-				</f:facet>
-				 -->
-				<f:facet name="header">
-					
-				</f:facet>
-				<!-- 
-				<p:ajax event="rowSelect" listener="#{mbPessoa.onRowSelect}" />
-				<p:ajax event="rowUnselect" listener="#{mbPessoa.onRowUnselect}" />
-				 -->
-				<!-- <p:ajax event="rowSelect" listener="#{mbPessoa.onRowSelect}" oncomplete="PF('dialogo').show()" /> -->
-				<p:ajax event="rowDblselect" listener="#{mbPessoa.onRowDblClckSelect}" oncomplete="PF('dialogo').show()" />
-				<!-- 
-				filterBy="#{item.id}"
-				 -->
-				<p:column headerText="Id" sortBy="#{item.id}" >
-					<h:outputText value="#{item.id}" ></h:outputText>
-				</p:column>
-				<p:column headerText="Nome" sortBy="#{item.nome}" >
-					<h:outputText value="#{item.nome}" ></h:outputText>
-				</p:column>
-				
-			</p:dataTable>
+		<!-- 	
 		</p:panel>
+		 -->
     </h:form>
 	
 </h:body>
