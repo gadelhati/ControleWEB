@@ -1,20 +1,33 @@
 select * from pessoa;
-insert into pessoa values (11,'11/11/1111 11:11:11',11);
-insert into pessoa values (12,'12/12/1212 12:12:12',12);
-insert into pessoa values (13,'13/01/1313 13:13:13',13);
-select * from pessoaFisica;
-insert into pessoaFisica values ('21', '05/04/1954','francisca','feminino');
-insert into pessoaFisica values ('22', '26/05/1981','marcelo','masculino');
-insert into pessoaFisica values ('23', '30/11/1976','andrea','feminino');
-insert into pessoaFisica values ('24', '30/11/2016','Gunther','masculino');
-insert into pessoaFisica values ('25', '10/05/1980','marcia','feminino');
+insert into pessoa values (11,'11/11/1111 11:11:11','Francisca');
+insert into pessoa values (12,'12/12/1212 12:12:12','Andrea');
+insert into pessoa values (13,'13/01/1313 13:13:13','Marcia');
+insert into pessoa values (14,'14/01/1414 14:14:14','Marcelo');
 
-update pessoa set nome='marcelo' where id='11';
+insert into pessoa values (21,'21/01/2121 21:21:21','Gisele');
+insert into pessoa values (22,'22/01/2222 22:22:22','Gunther');
+insert into pessoa values (23,'23/01/2323 23:23:23','Gustavo');
 
 select * from pessoaFisica;
-insert into pessoaFisica values ('11111111111','1111111',11,'11',true);
-insert into pessoaFisica values ('11111111112','1111112',12,'12',false);
+insert into pessoaFisica values ('','212.121.212-12',21212121,false,21);
+insert into pessoaFisica values ('','222.222.222-22',22222222,true,22);
+insert into pessoaFisica values ('','232.131.313-13',23232323,true,23);
+
+select * from ferramenta;
+insert into ferramenta values (31);
+insert into ferramenta values (32);
+insert into ferramenta values (33);
+
+insert into ferramenta values (41);
+insert into ferramenta values (42);
+insert into ferramenta values (43);
+
 select * from recurso;
-insert into recurso values ('ferramenta',11,11,11,11,11);
-select * from usuario;
-insert into usuario values ('11','11@11','11',11,11);
+insert into recurso values ('01/01/1111 11:11:41','01/01/1111 11:11:41','01/01/1111 11:11:41',1,1,9,41);
+insert into recurso values ('01/01/1111 11:11:42','01/01/1111 11:11:42','01/01/1111 11:11:42',2,2,8,42);
+insert into recurso values ('01/01/1111 11:11:43','01/01/1111 11:11:43','01/01/1111 11:11:43',3,3,7,43);
+
+select * from cargo;
+insert into cargo values (51,'01/01/1111 11:11:51',1);
+insert into cargo values (52,'01/01/1111 11:11:51',2);
+insert into cargo values (53,'01/01/1111 11:11:51',3);

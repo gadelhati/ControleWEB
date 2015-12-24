@@ -22,32 +22,61 @@
 	</div>
 	
 	<h:form id="Usuario">
+		<p:growl id="mensagens" showDetail="false" life="5000" autoUpdate="true" closable="true" />
 		
-		<p:tabView id="abas" >
+		<p:dataTable
+			id="tabela"
+			var="item"
+			value="#{mbUsuario.lista}"
+			emptyMesage="Não há registros na tabela"
+			
+			scrollable="true"
+			scrollHeight="500"
+			
+			sortMode="multiple"
+			resizableColumns="true"
+			draggableColumns="true"
+			draggableRows="true"
+			reflow="true"
+			
+			selectionMode="single"
+			selection="#{mbUsuario.usuario}"
+			rowKey="#{item.id}"
+		>
+			<f:facet name="footer">
+				<p:commandButton process="tabela" update=":Usuario:detalhes" icon="ui-icon-search" value="CRUD" oncomplete="PF('dialogo').show()" />
+			</f:facet>
+			<p:column style="width:16px">
+				<p:rowToggler />
+			</p:column>
+			<p:rowExpansion>
+				<p:panelGrid  columns="1" columnClasses="label,value">
+					<h:outputText value="#{item.id}" ></h:outputText>
+				</p:panelGrid>
+			</p:rowExpansion>
+			
+			<p:column headerText="Id" sortBy="#{item.id}" >
+				<h:outputText value="#{item.id}" ></h:outputText>
+			</p:column>
+		</p:dataTable>
 		
-			<p:tab title="Inserir" >
-				
-				<p:panel id="panel" header="Usuário" footer="Detalhes da Usuário" >
-				<h:panelGrid columns="1">
-				
-					<p:growl id="mensagens" showDetail="false" life="10000" autoUpdate="true" closable="true" />
-					<p:focus context="panel"/>
-					
+		<p:dialog header="Informações de Usuário" widgetVar="dialogo" modal="true" showEffect="puff" hideEffect="puff" resizable="false">
+			<p:outputPanel id="detalhes" style="text-align:center;">
+				<p:panelGrid  columns="1" rendered="#{not empty mbUsuario.usuario}" columnClasses="label,value">
 					<p:inputMask id="id" tabindex="1" placeholder="Id" value="#{mbUsuario.usuario.id}" title="Id" required="true" requiredMessage="Id Obrigatório" mask="99" >
 						<p:tooltip showEvent="focus" hideEvent="blur"></p:tooltip>
 						<f:validator validatorId="validarNumero" />
 					</p:inputMask>
-					<p:calendar id="cadastro" tabindex="2" placeholder="Cadastro*" value="#{mbUsuario.usuario.cadastro}" title="Cadastro" required="true" requiredMessage="Data Obrigatória" pattern="dd/MM/yyyy" ></p:calendar>
-					<p:inputText id="apelido" tabindex="7" placeholder="Apelido" value="#{mbUsuario.usuario.apelido}" title="Apelido" >
+					<p:calendar id="cadastro" tabindex="2" placeholder="Cadastro" value="#{mbUsuario.usuario.cadastro}" title="Cadastro" required="true" pattern="dd/MM/yyyy" ></p:calendar>
+					<p:inputText id="apelido" tabindex="3" placeholder="Apelido" value="#{mbUsuario.usuario.apelido}" title="Apelido" >
 						<f:validator validatorId="validarNome" />
 					</p:inputText>
-					<p:inputText id="email" tabindex="8" placeholder="E-mail" value="#{mbUsuario.usuario.email}" title="E-mail" required="true" requiredMessage="E-mail Obrigatório" >
+					<p:inputText id="email" tabindex="4" placeholder="E-mail*" value="#{mbUsuario.usuario.email}" title="E-mail" required="true" requiredMessage="E-mail Obrigatório" >
 						<f:validator validatorId="validarEmail"></f:validator>
 					</p:inputText>
-					
-					<p:password id="senha" match="senha2" tabindex="9" placeholder="Senha*" value="#{mbUsuario.usuario.senha}" required="true" feedback="true" />
-					<p:password id="senha2" tabindex="10" placeholder="Confirmar Senha*" value="#{mbUsuario.usuario.senha}" required="true" feedback="true" />
-					<p:selectOneMenu id="nivelDeAcesso" tabindex="11" value="#{mbUsuario.usuario.nivelDeAcesso}" >
+					<p:password id="senha" match="senha2" tabindex="5" placeholder="Senha*" value="#{mbUsuario.usuario.senha}" required="true" feedback="true" />
+					<p:password id="senha2" tabindex="6" placeholder="Confirmar Senha*" value="#{mbUsuario.usuario.senha}" required="true" feedback="true" />
+					<p:selectOneMenu id="nivelDeAcesso" tabindex="7" value="#{mbUsuario.usuario.nivelDeAcesso}" >
 						<f:selectItem itemLabel="Operador" itemValue="operador" />
 						<f:selectItem itemLabel="Gerente" itemValue="gerente" />
 						<f:selectItem itemLabel="Gestor" itemValue="gestor" />
@@ -55,73 +84,17 @@
 					</p:selectOneMenu>
 					<p:outputLabel value="* campos obrigatórios" />
 					
-					<p:toolbar id="ferramentas" >
-						<f:facet name="left">
-							<p:commandButton tabindex="13" value="Limpar" id="limpar" type="reset" icon="ui-icon-refresh"/>
-							<p:commandButton tabindex="14" value="Inserir" id="inserir" actionListener="#{mbUsuario.inserir}" icon="ui-icon-disk" update="tabela" >
-								<p:confirm header="Confirmação" message="Tem certeza?" />
-							</p:commandButton>
-							<p:commandButton tabindex="15" value="Alterar" id="alterar" actionListener="#{mbUsuario.alterar}" icon="ui-icon-disk" update="tabela" >
-								<p:confirm header="Confirmação" message="Tem certeza?" />
-							</p:commandButton>
-							<p:commandButton tabindex="16" value="Excluir" id="excluir" actionListener="#{mbUsuario.excluir}" icon="ui-icon-disk" update="tabela" >
-								<p:confirm header="Confirmação" message="Tem certeza?" />
-							</p:commandButton>
-							<p:confirmDialog global="true" showEffect="puff" hideEffect="puff">
-								<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-								<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-							</p:confirmDialog>
-						</f:facet>
-						<f:facet name="right">
-							<p:commandButton tabindex="17" value="Imprimir" type="button" icon="ui-icon-print" >
-								<p:printer target="panel" />
-							</p:commandButton>
-						</f:facet>
-					</p:toolbar>
-					
-				</h:panelGrid>
-				</p:panel>
-			</p:tab>
+					<p:commandButton tabindex="8" value="Inserir" id="inserir" actionListener="#{mbUsuario.inserir}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
+					<p:commandButton tabindex="9" value="Alterar" id="alterar" actionListener="#{mbUsuario.alterar}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
+					<p:commandButton tabindex="10" value="Excluir" id="excluir" actionListener="#{mbUsuario.excluir}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
+				</p:panelGrid>
+				<p:panelGrid  columns="1" rendered="#{empty mbUsuario.usuario}" columnClasses="label,value">
+					<p:outputLabel value="Selecione uma linha" ></p:outputLabel>
+				</p:panelGrid>
+			</p:outputPanel>
 			
-			<p:tab title="Tabela" >
-				<p:dataTable
-					id="tabela"
-					var="item"
-					value="#{mbUsuario.lista}"
-					paginator="true"
-					rows="5"
-					emptyMesage="Não há registros na tabela"
-					paginatorTempalte="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}"
-					rowsPerPageTemplate="5,10"
-				>
-	<!-- 
-	selectionMode="single"
-	selection="#{mbUsuario.usuario}"
-	rowKey="#{item.id}"
-	 -->
-					<f:facet name="header">
-						#{fn:length(mbUsuario.lista)} Usuário(s)
-						<p:graphicImage value="${pageContext.request.contextPath}/Filtro/imagens/estrutura.png" />
-					</f:facet>
-	<!-- 
-	<p:ajax event="rowSelect" listener="#{mbUsuario.onRowSelect}" />
-	<p:ajax event="rowUnselect" listener="#{mbUsuario.onRowUnselect}" />
-	 -->
-					<p:column headerText="Id" >
-						<h:outputText value="#{item.id}" ></h:outputText>
-					</p:column>
-					<p:column headerText="Nome" >
-						<h:outputText value="#{item.apelido}" ></h:outputText>
-					</p:column>
-					<f:facet name="footer">
-						<p:clock />
-					</f:facet>
-				</p:dataTable>
-			</p:tab>
-			
-        </p:tabView>
-		
-    </h:form>
-	
+		</p:dialog>
+   </h:form>
+
 </h:body>
 </html>

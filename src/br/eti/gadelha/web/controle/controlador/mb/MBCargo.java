@@ -46,8 +46,6 @@ public class MBCargo implements Serializable {
 			listar();
 			limpar();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado"));
-			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Manutenção", "Alterado"));
-			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Manutenção", "Alterado"));
 		}
 	}
 	public Boolean consultar() {
@@ -89,9 +87,6 @@ public class MBCargo implements Serializable {
 	}
 	public Boolean validar() {
 		try {
-			//(String.valueOf(cargo.getId()).matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"))? true:false
-			//"[a-z]{2,20}@[a-z]{2,20}.com(.|)[a-z]{0,2}"
-			//"[a-zA-Z0-9]{2,20}"
 			if(cargo!=null){
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Válido"));
 				return true;
@@ -119,14 +114,6 @@ public class MBCargo implements Serializable {
 		}
 	}
 	public Boolean autorizar() {
-		/*
-		 * servlet filter
-		 * phase listener
-		 * container managed security
-		 * jguard
-		 * spring security
-		 * apache shiro	PROPRIETÁRIO
-		 */
 		return null;
 	}
 	

@@ -14,6 +14,72 @@
 	<title>Controle - Cargo</title>
 </h:head>
 <h:body>
-    
+
+	<div class="header">
+		<ui:insert name="header">
+			<ui:include src="/Filtro/paginas/log/log.xhtml"></ui:include>
+		</ui:insert>
+	</div>
+	
+	<h:form id="Cargo">
+		<p:growl id="mensagens" showDetail="false" life="5000" autoUpdate="true" closable="true" />
+		
+		<p:dataTable
+			id="tabela"
+			var="item"
+			value="#{mbCargo.lista}"
+			emptyMesage="Não há registros na tabela"
+			
+			scrollable="true"
+			scrollHeight="500"
+			
+			sortMode="multiple"
+			resizableColumns="true"
+			draggableColumns="true"
+			draggableRows="true"
+			reflow="true"
+			
+			selectionMode="single"
+			selection="#{mbCargo.cargo}"
+			rowKey="#{item.id}"
+		>
+			<f:facet name="footer">
+				<p:commandButton process="tabela" update=":Cargo:detalhes" icon="ui-icon-search" value="CRUD" oncomplete="PF('dialogo').show()" />
+			</f:facet>
+			<p:column style="width:16px">
+				<p:rowToggler />
+			</p:column>
+			<p:rowExpansion>
+				<p:panelGrid  columns="1" columnClasses="label,value">
+					<h:outputText value="#{item.id}" ></h:outputText>
+				</p:panelGrid>
+			</p:rowExpansion>
+			
+			<p:column headerText="Id" sortBy="#{item.id}" >
+				<h:outputText value="#{item.id}" ></h:outputText>
+			</p:column>
+		</p:dataTable>
+		
+		<p:dialog header="Informações de Cargo" widgetVar="dialogo" modal="true" showEffect="puff" hideEffect="puff" resizable="false">
+			<p:outputPanel id="detalhes" style="text-align:center;">
+				<p:panelGrid  columns="1" rendered="#{not empty mbCargo.cargo}" columnClasses="label,value">
+					<p:inputMask id="id" tabindex="1" placeholder="Id*" value="#{mbCargo.cargo.id}" title="Id" required="true" requiredMessage="Id Obrigatório" mask="99" >
+						<p:tooltip showEvent="focus" hideEvent="blur"></p:tooltip>
+						<f:validator validatorId="validarNumero" />
+					</p:inputMask>
+					<p:outputLabel value="* campos obrigatórios" />
+					
+					<p:commandButton tabindex="2" value="Inserir" id="inserir" actionListener="#{mbCargo.inserir}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
+					<p:commandButton tabindex="3" value="Alterar" id="alterar" actionListener="#{mbCargo.alterar}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
+					<p:commandButton tabindex="4" value="Excluir" id="excluir" actionListener="#{mbCargo.excluir}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
+				</p:panelGrid>
+				<p:panelGrid  columns="1" rendered="#{empty mbCargo.cargo}" columnClasses="label,value">
+					<p:outputLabel value="Selecione uma linha" ></p:outputLabel>
+				</p:panelGrid>
+			</p:outputPanel>
+			
+		</p:dialog>
+   </h:form>
+
 </h:body>
 </html>

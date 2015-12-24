@@ -11,7 +11,7 @@
 >
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Controle - Pessoa Física</title>
+	<title>Controle - Pessoa Fisica</title>
 </h:head>
 <h:body>
 
@@ -22,18 +22,57 @@
 	</div>
 	
 	<h:form id="PessoaFisica">
+		<p:growl id="mensagens" showDetail="false" life="5000" autoUpdate="true" closable="true" />
 		
-		<p:tabView id="abas" >
+		<p:dataTable
+			id="tabela"
+			var="item"
+			value="#{mbPessoaFisica.lista}"
+			emptyMesage="Não há registros na tabela"
+			
+			scrollable="true"
+			scrollHeight="500"
+			
+			sortMode="multiple"
+			resizableColumns="true"
+			draggableColumns="true"
+			draggableRows="true"
+			reflow="true"
+			
+			selectionMode="single"
+			selection="#{mbPessoaFisica.pessoaFisica}"
+			rowKey="#{item.id}"
+		>
+			<f:facet name="footer">
+				<p:commandButton process="tabela" update=":PessoaFisica:detalhes" icon="ui-icon-search" value="CRUD" oncomplete="PF('dialogo').show()" />
+			</f:facet>
+			<p:column style="width:16px">
+				<p:rowToggler />
+			</p:column>
+			<p:rowExpansion>
+				<p:panelGrid  columns="1" columnClasses="label,value">
+					<h:outputText value="#{item.id}" ></h:outputText>
+					<h:outputText value="#{item.nascimento}" ></h:outputText>
+					<h:outputText value="#{item.nome}" ></h:outputText>
+					<h:outputText value="#{item.rg}" ></h:outputText>
+					<h:outputText value="#{item.cpf}" ></h:outputText>
+					<h:outputText value="#{item.sexo}" ></h:outputText>
+				</p:panelGrid>
+			</p:rowExpansion>
+			
+			<p:column headerText="Id" sortBy="#{item.id}" >
+				<h:outputText value="#{item.id}" ></h:outputText>
+			</p:column>
+			<p:column headerText="Nome" sortBy="#{item.nome}" >
+				<h:outputText value="#{item.nome}" ></h:outputText>
+			</p:column>
+			
+		</p:dataTable>
 		
-			<p:tab title="Inserir" >
-				
-				<p:panel id="panel" header="Pessoa Física" footer="Detalhes da Pessoa Física" >
-				<h:panelGrid columns="1">
-				
-					<p:growl id="mensagens" showDetail="false" life="10000" autoUpdate="true" closable="true" />
-					<p:focus context="panel"/>
-					
-					<p:inputMask id="id" tabindex="1" placeholder="Id" value="#{mbPessoaFisica.pessoaFisica.id}" title="Id" required="true" requiredMessage="Id Obrigatório" mask="99" >
+		<p:dialog header="Informações de Pessoa Física" widgetVar="dialogo" modal="true" showEffect="puff" hideEffect="puff" resizable="false">
+			<p:outputPanel id="detalhes" style="text-align:center;">
+				<p:panelGrid  columns="1" rendered="#{not empty mbPessoaFisica.pessoaFisica}" columnClasses="label,value">
+					<p:inputMask id="id" tabindex="1" placeholder="Id*" value="#{mbPessoaFisica.pessoaFisica.id}" title="Id" required="true" requiredMessage="Id Obrigatório" mask="99" >
 						<p:tooltip showEvent="focus" hideEvent="blur"></p:tooltip>
 						<f:validator validatorId="validarNumero" />
 					</p:inputMask>
@@ -42,79 +81,29 @@
 						<f:validator validatorId="validarNome" />
 					</p:inputText>
 					
-					<p:inputMask id="rg" tabindex="5" placeholder="Registro Geral*" value="#{mbPessoaFisica.pessoaFisica.rg}" title="Registro Geral" required="true" requiredMessage="RG Obrigatório" mask="9999999*">
+					<p:inputMask id="rg" tabindex="4" placeholder="Registro Geral*" value="#{mbPessoaFisica.pessoaFisica.rg}" title="Registro Geral" required="true" requiredMessage="RG Obrigatório" mask="9999999*">
 						<f:validator validatorId="validarRG" />
 					</p:inputMask>
-					<p:inputMask id="cpf" tabindex="6" placeholder="CPF*" value="#{mbPessoaFisica.pessoaFisica.cpf}" title="CPF" required="true" requiredMessage="CPF Obrigatório" mask="999.999.999-99">
+					<p:inputMask id="cpf" tabindex="5" placeholder="CPF*" value="#{mbPessoaFisica.pessoaFisica.cpf}" title="CPF" required="true" requiredMessage="CPF Obrigatório" mask="999.999.999-99">
 						<f:validator validatorId="validarCPF" />
 					</p:inputMask>
 					<p:selectOneButton id="sexo" value="#{mbPessoaFisica.pessoaFisica.sexo}" required="true"  requiredMessage="Sexo Obrigatório" >
-						<f:selectItem itemLabel="Masculino" itemValue="masculino" />
-						<f:selectItem itemLabel="Feminino" itemValue="feminino" />
+						<f:selectItem itemLabel="Masculino" itemValue="true" />
+						<f:selectItem itemLabel="Feminino" itemValue="false" />
 					</p:selectOneButton>
 					<p:outputLabel value="* campos obrigatórios" />
 					
-					<p:toolbar id="ferramentas" >
-						<f:facet name="left">
-							<p:commandButton tabindex="7" value="Limpar" id="limpar" type="reset" icon="ui-icon-refresh"/>
-							<p:commandButton tabindex="8" value="Inserir" id="inserir" actionListener="#{mbPessoaFisica.inserir}" icon="ui-icon-disk" update="tabela" >
-								<p:confirm header="Confirmação" message="Tem certeza?" />
-							</p:commandButton>
-							<p:commandButton tabindex="9" value="Alterar" id="alterar" actionListener="#{mbPessoaFisica.alterar}" icon="ui-icon-disk" update="tabela" >
-								<p:confirm header="Confirmação" message="Tem certeza?" />
-							</p:commandButton>
-							<p:commandButton tabindex="10" value="Excluir" id="excluir" actionListener="#{mbPessoaFisica.excluir}" icon="ui-icon-disk" update="tabela" >
-								<p:confirm header="Confirmação" message="Tem certeza?" />
-							</p:commandButton>
-							<p:confirmDialog global="true" showEffect="puff" hideEffect="puff">
-								<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-								<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-							</p:confirmDialog>
-						</f:facet>
-						<f:facet name="right">
-							<p:commandButton tabindex="11" value="Imprimir" type="button" icon="ui-icon-print" >
-								<p:printer target="panel" />
-							</p:commandButton>
-						</f:facet>
-					</p:toolbar>
-					
-				</h:panelGrid>
-				</p:panel>
-			</p:tab>
+					<p:commandButton tabindex="6" value="Inserir" id="inserir" actionListener="#{mbPessoaFisica.inserir}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
+					<p:commandButton tabindex="7" value="Alterar" id="alterar" actionListener="#{mbPessoaFisica.alterar}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
+					<p:commandButton tabindex="8" value="Excluir" id="excluir" actionListener="#{mbPessoaFisica.excluir}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
+				</p:panelGrid>
+				<p:panelGrid  columns="1" rendered="#{empty mbPessoaFisica.pessoaFisica}" columnClasses="label,value">
+					<p:outputLabel value="Selecione uma linha" ></p:outputLabel>
+				</p:panelGrid>
+			</p:outputPanel>
 			
-			<p:tab title="Tabela" >
-				<p:dataTable
-					id="tabela"
-					var="item"
-					value="#{mbPessoaFisica.lista}"
-					emptyMesage="Não há registros na tabela"
-					
-					paginator="true"
-					rows="5"
-					paginatorTempalte="{CurrentPageReport} {FirstPageLink} {PreviousPageLink}"
-					rowsPerPageTemplate="5,10,15"
-				>
-				
-					<f:facet name="header">
-						#{fn:length(mbPessoaFisica.lista)} Pessoa Física(s)
-						<p:graphicImage value="${pageContext.request.contextPath}/Filtro/imagens/estrutura.png" />
-					</f:facet>
-					
-					<p:column headerText="Id" >
-						<h:outputText value="#{item.id}" ></h:outputText>
-					</p:column>
-					<p:column headerText="Nome" >
-						<h:outputText value="#{item.nome}" ></h:outputText>
-					</p:column>
-					<f:facet name="footer">
-						<p:clock />
-					</f:facet>
-				</p:dataTable>
-			</p:tab>
-			
-        </p:tabView>
-		
-    </h:form>
-	
+		</p:dialog>
+   </h:form>
+
 </h:body>
 </html>

@@ -5,9 +5,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -16,7 +14,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 
@@ -212,15 +209,9 @@ public class MBPessoa implements Serializable {
 	public String toString() {
 		return "MBPessoa [daoPessoa=" + daoPessoa + ", pessoa=" + pessoa + ", lista=" + lista + ",selecionados=" + selecionados + "]";
 	}
-	/*
+	
 	public void onRowSelect(SelectEvent event) {}
 	public void onRowUnselect(UnselectEvent event) {}
 	public void onRowDblClckSelect(final SelectEvent event) {}
 	
-	public void viewCars() {
-        Map<String,Object> options = new HashMap<String, Object>();
-        options.put("resizable", false);
-        RequestContext.getCurrentInstance().openDialog("viewCars", options, null);
-    }
-    */
 }
