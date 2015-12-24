@@ -14,9 +14,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.event.SelectEvent;
-import org.primefaces.event.UnselectEvent;
-
 import br.eti.gadelha.ejb.controle.interfaces.local.DAOLocalPessoa;
 import br.eti.gadelha.ejb.controle.modelo.oque.quem.Pessoa;
 
@@ -54,6 +51,7 @@ public class MBPessoa implements Serializable {
 				//FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("atributo");
 				if(daoPessoa.consultar(pessoa).getId() == pessoa.getId()) {
 					FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("pessoa", pessoa);
+					FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", pessoa.getId());
 					FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("lista", daoPessoa.listar());
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Seção iniciada"));
 					System.out.println("SO: "+System.getProperty("os.name"));
@@ -63,10 +61,12 @@ public class MBPessoa implements Serializable {
 					System.out.println("Versão do JVM: "+System.getProperty("java.vm.specification.version"));
 					SimpleDateFormat sdf = new SimpleDateFormat("hh:mm dd/MM/yyyy ");  
 					System.out.println("Hora do Sistema: "+ sdf.format(new Date()));
+					//FacesContext.getCurrentInstance().getExternalContext().redirect("Filtro/paginas/crud/usuario.xhtml");
 					return "/Filtro/paginas/crud/pessoa.xhtml";
 				}
 			}else {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Seção não iniciada"));
+				//ou inserir();
 			}
 		}catch (Exception e){
 			e.printStackTrace();
@@ -74,22 +74,30 @@ public class MBPessoa implements Serializable {
 		return null;
 	}
 	//INVALIDANDO A SESSÃO
-  	public String logOut() throws IOException{
+  	public String logOff() throws IOException{
+  		/*
+  		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", null);
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("lista", null);
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("usuario");
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("lista");
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Seção encerrada"));
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("/index.xhtml");
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+  		*/
   		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
   		return "/index.xhtml";
   	}
-  	/*
-  	public String in() throws IOException{
-  		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("pessoa", pessoa);
-  		return "/Filtro/paginas/crud/inserir.xhtml";
-  	}
-	*/
+  	
 	//CRUD
 	public void alterar() {
 		if(consultar()){
 			daoPessoa.alterar(pessoa);
 			listar();
-			//limpar();
+			limpar();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alterado"));
 			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Manutenção", "Alterado"));
 			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Manutenção", "Alterado"));
@@ -209,9 +217,9 @@ public class MBPessoa implements Serializable {
 	public String toString() {
 		return "MBPessoa [daoPessoa=" + daoPessoa + ", pessoa=" + pessoa + ", lista=" + lista + ",selecionados=" + selecionados + "]";
 	}
-	
+	/*
 	public void onRowSelect(SelectEvent event) {}
 	public void onRowUnselect(UnselectEvent event) {}
 	public void onRowDblClckSelect(final SelectEvent event) {}
-	
+	*/
 }

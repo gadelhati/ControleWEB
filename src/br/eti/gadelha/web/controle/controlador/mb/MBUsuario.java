@@ -17,6 +17,8 @@ import javax.imageio.stream.FileImageOutputStream;
 import javax.servlet.ServletContext;
 
 import org.primefaces.event.CaptureEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 
 import br.eti.gadelha.ejb.controle.interfaces.local.DAOLocalUsuario;
 import br.eti.gadelha.ejb.controle.modelo.oque.quem.Usuario;
@@ -49,16 +51,21 @@ public class MBUsuario implements Serializable {
 		listar();
 	}
 	
-	public void logIn() {
+	//VALIDANDO A SESSÃO
+	public String logIn() {
 		try {
 			if(consultar()){//!=null
-				//FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("atributo");
 				if(daoUsuario.consultar(usuario).getId() == usuario.getId()) {
-					FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
-					FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", usuario.getId());
-					FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("lista", daoUsuario.listar());
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Seção iniciada"));
-					FacesContext.getCurrentInstance().getExternalContext().redirect("Filtro/paginas/crud/usuario.xhtml");
+					if(daoUsuario.consultar(usuario).getSenha() == usuario.getSenha()) {
+						FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
+						FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("lista", daoUsuario.listar());
+						FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Seção iniciada"));
+						return "Filtro/paginas/crud/usuario.xhtml";
+					}else {
+						FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Senha incorreta"));
+					}
+				}else {
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuário não encontrado"));
 				}
 			}else {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Seção não iniciada"));
@@ -67,19 +74,12 @@ public class MBUsuario implements Serializable {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
+		return null;
 	}
-	public void logOff() {
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", null);
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("lista", null);
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("usuario");
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("lista");
+	//INVALIDANDO A SESSÃO
+	public String logOff() throws IOException{
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Seção encerrada"));
-		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("/index.xhtml");
-		}catch (Exception e){
-			e.printStackTrace();
-		}
+  		return "/index.xhtml";
 	}
 	
 	//CRUD
@@ -229,6 +229,10 @@ public class MBUsuario implements Serializable {
 			throw new FacesException("Error in writing captured image.", e);
 		}
 	}
+	
+	public void onRowSelect(SelectEvent event) {}
+	public void onRowUnselect(UnselectEvent event) {}
+	public void onRowDblClckSelect(final SelectEvent event) {}
 	
 	/*
 	public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException {

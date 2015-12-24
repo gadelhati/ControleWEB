@@ -5,26 +5,33 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import br.eti.gadelha.ejb.controle.modelo.oque.Recurso;
+import br.eti.gadelha.ejb.controle.modelo.oque.Ferramenta;
 
 /**
  * @autor Marcelo Ribeiro Gadelha
- * @since 27/08/2015
+ * @since 24/12/2015
  * @see www.gadelha.eti.br
  **/
 
-@FacesConverter(forClass = Recurso.class)
-public class ConverterId implements Converter{
+@FacesConverter(forClass = Ferramenta.class)
+public class ConversorFerramenta implements Converter{
 
 	@Override
 	public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String value) {
 		if(value != null && !value.isEmpty()) {
-			return (Recurso) uiComponent.getAttributes().get(value);
+			return (Ferramenta) uiComponent.getAttributes().get(value);
 		}
 		return null;
 	}
 	@Override
 	public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object value) {
-		return value.toString();
+		if(value instanceof Ferramenta) {
+			Ferramenta recurso = (Ferramenta) value;
+			if (recurso != null && recurso instanceof Ferramenta) {// && recurso.getId() != null
+				uiComponent.getAttributes().put( Long.toString(recurso.getId()), recurso);
+                return Long.toString(recurso.getId());
+			}
+		}
+		return "";
 	}
 }

@@ -14,7 +14,7 @@ import br.eti.gadelha.ejb.controle.modelo.oque.Recurso;
  **/
 
 @FacesConverter(forClass = Recurso.class)
-public class Conversor implements Converter{
+public class ConversorRecurso implements Converter{
 
 	@Override
 	public Object getAsObject(FacesContext facesContext, UIComponent uiComponent, String value) {

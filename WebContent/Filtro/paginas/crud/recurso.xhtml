@@ -93,23 +93,27 @@
 						<p:tooltip showEvent="focus" hideEvent="blur"></p:tooltip>
 						<f:validator validatorId="validarNumero" />
 					</p:inputMask>
-					<p:calendar id="contratacao" tabindex="2" placeholder="Contratação" value="#{mbRecurso.recurso.contratacao}" title="Contratação" required="true" requiredMessage="Data Obrigatória" pattern="dd/MM/yyyy" ></p:calendar>
-					<p:calendar id="aposentadoria" tabindex="3" placeholder="Aposentadoria" value="#{mbRecurso.recurso.aposentadoria}" title="Aposentadoria" required="true" requiredMessage="Data Obrigatória" pattern="dd/MM/yyyy" ></p:calendar>
-					<p:calendar id="depreciacao" tabindex="4" placeholder="Depreciação" value="#{mbRecurso.recurso.depreciacao}" title="Depreciação" required="true" requiredMessage="Data Obrigatória" pattern="dd/MM/yyyy" ></p:calendar>
-					<p:inputMask id="interesse" tabindex="5" placeholder="Interesse" value="#{mbRecurso.recurso.interesse}" title="Interesse" required="true" mask="9*">
+					<p:selectOneMenu id="ferramenta" tabindex="2" value="#{mbFerramenta.ferramenta.ferramenta}" >
+						<f:selectItem itemLabel="Selecione" itemValue="" />
+						<f:selectItems value="#{mbFerramenta.lista}" var="objeto" itemLabel="#{objeto.id}" itemValue="#{objeto}" />
+					</p:selectOneMenu>
+					<p:calendar id="contratacao" tabindex="3" placeholder="Contratação" value="#{mbRecurso.recurso.contratacao}" title="Contratação" required="true" requiredMessage="Data Obrigatória" pattern="dd/MM/yyyy" ></p:calendar>
+					<p:calendar id="aposentadoria" tabindex="4" placeholder="Aposentadoria" value="#{mbRecurso.recurso.aposentadoria}" title="Aposentadoria" required="true" requiredMessage="Data Obrigatória" pattern="dd/MM/yyyy" ></p:calendar>
+					<p:calendar id="depreciacao" tabindex="5" placeholder="Depreciação" value="#{mbRecurso.recurso.depreciacao}" title="Depreciação" required="true" requiredMessage="Data Obrigatória" pattern="dd/MM/yyyy" ></p:calendar>
+					<h:outputText id="valor" value="Interesse #{mbRecurso.recurso.interesse}" />
+					<h:inputHidden id="interesse" value="#{mbRecurso.recurso.interesse}" />
+					<p:slider for="interesse" tabindex="6" display="valor" displayTemplate="Interesse {value}" />
+					<p:spinner id="qtdMin" tabindex="7" value="#{mbRecurso.recurso.qtdMin}" min="0" max="9" title="Quantidade Mínima" required="true" requiredMessage="Quantidade Mínima de Horas por dia, Obrigatória" >
 						<f:validator validatorId="validarUmNumero" />
-					</p:inputMask>
-					<p:inputMask id="qtdMin" tabindex="6" placeholder="Quantidade Mínima" value="#{mbRecurso.recurso.qtdMin}" title="Quantidade Mínima" required="true" mask="9*">
+					</p:spinner>
+					<p:spinner id="qtdMax" tabindex="8" value="#{mbRecurso.recurso.qtdMax}" min="0" max="9" title="Quantidade Máxima" required="true" requiredMessage="Quantidade Máxima de Horas por dia, Obrigatória" >
 						<f:validator validatorId="validarUmNumero" />
-					</p:inputMask>
-					<p:inputMask id="qtdMax" tabindex="7" placeholder="Quantidade Máxima" value="#{mbRecurso.recurso.qtdMax}" title="Quantidade Máxima" required="true" mask="9*">
-						<f:validator validatorId="validarUmNumero" />
-					</p:inputMask>
+					</p:spinner>
 					<p:outputLabel value="* campos obrigatórios" />
 					
-					<p:commandButton tabindex="8" value="Inserir" id="inserir" actionListener="#{mbRecurso.inserir}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
-					<p:commandButton tabindex="9" value="Alterar" id="alterar" actionListener="#{mbRecurso.alterar}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
-					<p:commandButton tabindex="10" value="Excluir" id="excluir" actionListener="#{mbRecurso.excluir}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
+					<p:commandButton tabindex="9" value="Inserir" id="inserir" actionListener="#{mbRecurso.inserir}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
+					<p:commandButton tabindex="10" value="Alterar" id="alterar" actionListener="#{mbRecurso.alterar}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
+					<p:commandButton tabindex="11" value="Excluir" id="excluir" actionListener="#{mbRecurso.excluir}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
 				</p:panelGrid>
 				<p:panelGrid  columns="1" rendered="#{empty mbRecurso.recurso}" columnClasses="label,value">
 					<p:outputLabel value="Selecione uma linha" ></p:outputLabel>
