@@ -56,11 +56,11 @@ public class MBUsuario implements Serializable {
 		try {
 			if(consultar()){//!=null
 				if(daoUsuario.consultar(usuario).getId() == usuario.getId()) {
-					if(daoUsuario.consultar(usuario).getSenha() == usuario.getSenha()) {
+					if(daoUsuario.consultar(usuario).getSenha().equals(usuario.getSenha())) {
 						FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
 						FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("lista", daoUsuario.listar());
 						FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Seção iniciada"));
-						return "Filtro/paginas/crud/usuario.xhtml";
+						return "/Filtro/paginas/crud/usuario.xhtml";
 					}else {
 						FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Senha incorreta"));
 					}
@@ -72,6 +72,8 @@ public class MBUsuario implements Serializable {
 				//ou inserir();
 			}
 		}catch (Exception e){
+			System.out.println("catch");
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("catch"));
 			e.printStackTrace();
 		}
 		return null;
@@ -200,6 +202,7 @@ public class MBUsuario implements Serializable {
 	public void setAss(String ass) {
 		this.ass = ass;
 	}
+	
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}

@@ -52,6 +52,7 @@
 			<p:rowExpansion>
 				<p:panelGrid  columns="1" columnClasses="label,value">
 					<h:outputText value="#{item.id}" ></h:outputText>
+					<h:outputText value="#{item.ferramenta.id}" ></h:outputText>
 					<h:outputText value="#{item.contratacao}" ></h:outputText>
 					<h:outputText value="#{item.aposentadoria}" ></h:outputText>
 					<h:outputText value="#{item.depreciacao}" ></h:outputText>
@@ -64,7 +65,10 @@
 			<p:column headerText="Id" sortBy="#{item.id}" >
 				<h:outputText value="#{item.id}" ></h:outputText>
 			</p:column>
-			<!-- 
+			<!--
+			<p:column headerText="Ferramenta" sortBy="#{item.ferramenta.id}" >
+				<h:outputText value="#{item.ferramenta.id}" ></h:outputText>
+			</p:column> 
 			<p:column headerText="Data de Contratação" sortBy="#{item.contratacao}" >
 				<h:outputText value="#{item.contratacao}" ></h:outputText>
 			</p:column>
@@ -93,7 +97,7 @@
 						<p:tooltip showEvent="focus" hideEvent="blur"></p:tooltip>
 						<f:validator validatorId="validarNumero" />
 					</p:inputMask>
-					<p:selectOneMenu id="ferramenta" tabindex="2" value="#{mbFerramenta.ferramenta.ferramenta}" >
+					<p:selectOneMenu id="ferramenta" tabindex="2" value="#{mbRecurso.recurso.ferramenta}" >
 						<f:selectItem itemLabel="Selecione" itemValue="" />
 						<f:selectItems value="#{mbFerramenta.lista}" var="objeto" itemLabel="#{objeto.id}" itemValue="#{objeto}" />
 					</p:selectOneMenu>

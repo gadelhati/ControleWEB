@@ -31,3 +31,14 @@ select * from cargo;
 insert into cargo values (51,'01/01/1111 11:11:51',1);
 insert into cargo values (52,'01/01/1111 11:11:51',2);
 insert into cargo values (53,'01/01/1111 11:11:51',3);
+
+insert into cargo values (61,'01/01/1111 11:11:01',4);
+insert into cargo values (62,'01/01/1111 11:11:02',5);
+insert into cargo values (63,'01/01/1111 11:11:03',6);
+insert into cargo values (64,'01/01/1111 11:11:03',7);
+
+select * from usuario;
+insert into usuario values ('alias','01/01/1111 11:11:01','61@email.com','operador','1234',61);
+insert into usuario values ('alias','01/01/1111 11:11:02','62@email.com','gerente','1234',62);
+insert into usuario values ('alias','01/01/1111 11:11:03','63@email.com','gestor','1234',63);
+insert into usuario values ('alias','01/01/1111 11:11:04','64@email.com','administrador','1234',64);

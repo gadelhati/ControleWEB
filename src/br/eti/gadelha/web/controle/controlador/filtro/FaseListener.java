@@ -26,10 +26,10 @@ public class FaseListener implements PhaseListener {
 		
 		boolean pagina = (paginaCorrente.lastIndexOf("index.xhtml") > -1);//RECUPERANDO PÁGINA CORRENTE
 		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
-		Object pessoa = session.getAttribute("pessoa");//RECUPERANDO OBJETO DA SESSÃO
+		Object usuario = session.getAttribute("usuario");//RECUPERANDO OBJETO DA SESSÃO
 		
 		NavigationHandler navigationHandler = facesContext.getApplication().getNavigationHandler();
-		if (!pagina && pessoa == null) {//INAUTENTICO
+		if (!pagina && usuario == null) {//INAUTENTICO
 			navigationHandler.handleNavigation(facesContext, null, "Index");//REDIRECIONA
 		}else {//AUTENTICO
 			/*boolean paginaPessoa = (paginaCorrente.lastIndexOf("pessoa.xhtml") > -1);//RECUPERANDO PÁGINA CORRENTE

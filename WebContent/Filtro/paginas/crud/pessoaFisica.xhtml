@@ -57,6 +57,7 @@
 					<h:outputText value="#{item.rg}" ></h:outputText>
 					<h:outputText value="#{item.cpf}" ></h:outputText>
 					<h:outputText value="#{item.sexo}" ></h:outputText>
+					<h:outputText value="#{item.recurso.id}" ></h:outputText>
 				</p:panelGrid>
 			</p:rowExpansion>
 			
@@ -91,11 +92,15 @@
 						<f:selectItem itemLabel="Masculino" itemValue="true" />
 						<f:selectItem itemLabel="Feminino" itemValue="false" />
 					</p:selectOneButton>
+					<p:selectOneMenu id="recurso" tabindex="6" value="#{mbPessoaFisica.pessoaFisica.recurso}" >
+						<f:selectItem itemLabel="Selecione" itemValue="" />
+						<f:selectItems value="#{mbRecurso.lista}" var="objeto" itemLabel="#{objeto.id}" itemValue="#{objeto}" />
+					</p:selectOneMenu>
 					<p:outputLabel value="* campos obrigatórios" />
 					
-					<p:commandButton tabindex="6" value="Inserir" id="inserir" actionListener="#{mbPessoaFisica.inserir}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
-					<p:commandButton tabindex="7" value="Alterar" id="alterar" actionListener="#{mbPessoaFisica.alterar}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
-					<p:commandButton tabindex="8" value="Excluir" id="excluir" actionListener="#{mbPessoaFisica.excluir}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
+					<p:commandButton tabindex="7" value="Inserir" id="inserir" actionListener="#{mbPessoaFisica.inserir}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
+					<p:commandButton tabindex="8" value="Alterar" id="alterar" actionListener="#{mbPessoaFisica.alterar}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
+					<p:commandButton tabindex="9" value="Excluir" id="excluir" actionListener="#{mbPessoaFisica.excluir}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />
 				</p:panelGrid>
 				<p:panelGrid  columns="1" rendered="#{empty mbPessoaFisica.pessoaFisica}" columnClasses="label,value">
 					<p:outputLabel value="Selecione uma linha" ></p:outputLabel>

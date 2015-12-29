@@ -15,20 +15,22 @@
 </h:head>
 <h:body>
 
-	<h:form id="PessoaLog">
+	<h:form id="Log">
 		
 		<p:toolbar id="ferramentasLog" >
 			<f:facet name="left">
-				<c:if test='${pessoa == null}'>
-					<p:inputMask id="idLog" tabindex="1" placeholder="Id" value="#{mbPessoa.pessoa.id}" title="Id" required="true" mask="99" >
+				<c:if test='${usuario == null}'>
+					<p:inputMask id="id" tabindex="1" placeholder="Id" value="#{mbUsuario.usuario.id}" title="Id" required="true" mask="99" >
 						<p:tooltip showEvent="focus" hideEvent="blur"></p:tooltip>
 						<f:validator validatorId="validarNumero" />
 					</p:inputMask>
-					<p:commandButton tabindex="2" value="Login" id="logInLog" action="#{mbPessoa.logIn}" icon="ui-icon-disk" />
-					<p:commandButton tabindex="3" value="Nova Conta" id="novoLog" action="#" disabled="true" />
-					<p:commandButton tabindex="4" value="Esquecia a senha" id="esqueci" actionListener="#" disabled="true" />
+					<p:password id="senha" match="senha" tabindex="2" placeholder="Senha*" value="#{mbUsuario.usuario.senha}" required="true" />
+					
+					<p:commandButton tabindex="3" value="Login" id="logIn" action="#{mbUsuario.logIn}" icon="ui-icon-disk" />
+					<p:commandButton tabindex="4" value="Nova Conta" id="novoLog" action="#{mbUsuario.logIn}" />
+					<p:commandButton tabindex="5" value="Esquecia a senha" id="esqueci" actionListener="#" disabled="true" />
 				</c:if>
-				<c:if test='${pessoa != null}'>
+				<c:if test='${usuario != null}'>
 					<p:splitButton value="Escolha" icon="ui-icon-extlink">
 						<p:menuitem value="Pessoa" url="/Filtro/paginas/crud/pessoa.xhtml" icon="ui-icon-extlink" />
 						<p:menuitem value="Pessoa Física" url="/Filtro/paginas/crud/pessoaFisica.xhtml" icon="ui-icon-extlink" />
@@ -42,8 +44,8 @@
 				</c:if>
 			</f:facet>
 			<f:facet name="right">
-				<c:if test='${pessoa != null}'>
-					<p:commandButton tabindex="3" value="logOut" id="logOutLog" action="#{mbPessoa.logOff}" icon="ui-icon-disk" />
+				<c:if test='${usuario != null}'>
+					<p:commandButton tabindex="5" value="logOff" id="logOff" action="#{mbUsuario.logOff}" icon="ui-icon-disk" />
 				</c:if>
 			</f:facet>
 		</p:toolbar>
