@@ -29,7 +29,7 @@ import br.eti.gadelha.ejb.controle.modelo.oque.quem.PessoaFisica;
  * @see www.gadelha.eti.br
  * */
 
-@WebServlet(description = "Servlet", urlPatterns = { "/Servlet" })
+@WebServlet(description = "Servlet", urlPatterns = { "/ServletCliente" })
 public class ServletCliente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

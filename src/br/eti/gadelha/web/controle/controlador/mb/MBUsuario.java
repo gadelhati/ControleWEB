@@ -3,7 +3,11 @@ package br.eti.gadelha.web.controle.controlador.mb;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -51,6 +55,8 @@ public class MBUsuario implements Serializable {
 		listar();
 	}
 	
+	
+	
 	//VALIDANDO A SESSÃO
 	public String logIn() {
 		try {
@@ -60,6 +66,30 @@ public class MBUsuario implements Serializable {
 						FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
 						FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("lista", daoUsuario.listar());
 						FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Seção iniciada"));
+						
+						System.out.println("SO: "+System.getProperty("os.name"));
+						System.out.println("Arquitetura do SO: "+System.getProperty("os.arch"));
+						System.out.println("Usuário do SO: "+System.getProperty("user.name"));
+						System.out.println("Versão do JRE: "+System.getProperty("java.version"));
+						System.out.println("Versão do JVM: "+System.getProperty("java.vm.specification.version"));
+						SimpleDateFormat sdf = new SimpleDateFormat("hh:mm dd/MM/yyyy ");  
+						System.out.println("Hora do Sistema: "+ sdf.format(new Date()));
+						//FacesContext.getCurrentInstance().getExternalContext().redirect("Filtro/paginas/crud/usuario.xhtml");
+						
+						InetAddress localHost = InetAddress.getLocalHost();
+					    NetworkInterface netInter = NetworkInterface.getByInetAddress( localHost );
+					    byte[] macAddressBytes = netInter.getHardwareAddress();
+					    String macAddress =  String.format ( "%1$02x-%2$02x-%3$02x-%4$02x-%5$02x-%6$02x",
+					    macAddressBytes[0], macAddressBytes[1],
+					    macAddressBytes[2], macAddressBytes[3],
+					    macAddressBytes[4], macAddressBytes[5] ).toUpperCase();
+					    System.out.println("MAC: "+macAddress);
+					    
+					    Runtime rt = Runtime.getRuntime();  
+					    System.out.println("Memória livre " + rt.freeMemory());  
+					    System.out.println("Máximo memória: " + rt.maxMemory());  
+					    System.out.println("Número de processadores: " + rt.availableProcessors());
+					    
 						return "/Filtro/paginas/crud/usuario.xhtml";
 					}else {
 						FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Senha incorreta"));

@@ -2,9 +2,7 @@ package br.eti.gadelha.web.controle.controlador.mb;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -54,14 +52,6 @@ public class MBPessoa implements Serializable {
 					FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", pessoa.getId());
 					FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("lista", daoPessoa.listar());
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Seção iniciada"));
-					System.out.println("SO: "+System.getProperty("os.name"));
-					System.out.println("Arquitetura do SO: "+System.getProperty("os.arch"));
-					System.out.println("Usuário do SO: "+System.getProperty("user.name"));
-					System.out.println("Versão do JRE: "+System.getProperty("java.version"));
-					System.out.println("Versão do JVM: "+System.getProperty("java.vm.specification.version"));
-					SimpleDateFormat sdf = new SimpleDateFormat("hh:mm dd/MM/yyyy ");  
-					System.out.println("Hora do Sistema: "+ sdf.format(new Date()));
-					//FacesContext.getCurrentInstance().getExternalContext().redirect("Filtro/paginas/crud/usuario.xhtml");
 					return "/Filtro/paginas/crud/pessoa.xhtml";
 				}
 			}else {
