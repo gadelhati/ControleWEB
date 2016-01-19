@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,8 +56,6 @@ public class MBUsuario implements Serializable {
 		listar();
 	}
 	
-	
-	
 	//VALIDANDO A SESSÃO
 	public String logIn() {
 		try {
@@ -76,6 +75,12 @@ public class MBUsuario implements Serializable {
 						System.out.println("Hora do Sistema: "+ sdf.format(new Date()));
 						//FacesContext.getCurrentInstance().getExternalContext().redirect("Filtro/paginas/crud/usuario.xhtml");
 						
+						Runtime rt = Runtime.getRuntime(); 
+					    System.out.println("Memória total " + rt.totalMemory());
+					    System.out.println("Memória livre " + rt.freeMemory());  
+					    System.out.println("Máximo memória: " + rt.maxMemory());  
+					    System.out.println("Número de processadores: " + rt.availableProcessors());
+						
 						InetAddress localHost = InetAddress.getLocalHost();
 					    NetworkInterface netInter = NetworkInterface.getByInetAddress( localHost );
 					    byte[] macAddressBytes = netInter.getHardwareAddress();
@@ -85,10 +90,12 @@ public class MBUsuario implements Serializable {
 					    macAddressBytes[4], macAddressBytes[5] ).toUpperCase();
 					    System.out.println("MAC: "+macAddress);
 					    
-					    Runtime rt = Runtime.getRuntime();  
-					    System.out.println("Memória livre " + rt.freeMemory());  
-					    System.out.println("Máximo memória: " + rt.maxMemory());  
-					    System.out.println("Número de processadores: " + rt.availableProcessors());
+					    try {
+					    	System.out.println("Nome do PC: "+InetAddress.getLocalHost().getHostName());
+					    	System.out.println("IP do PC: "+InetAddress.getLocalHost().getHostAddress());
+					    } catch (UnknownHostException e) {
+					    	e.printStackTrace();
+					    }
 					    
 						return "/Filtro/paginas/crud/usuario.xhtml";
 					}else {
