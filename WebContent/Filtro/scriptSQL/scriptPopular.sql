@@ -23,19 +23,19 @@ insert into ferramenta values (42);
 insert into ferramenta values (43);
 
 select * from recurso;
-insert into recurso values ('01/01/1111 11:11:41','01/01/1111 11:11:41','01/01/1111 11:11:41',1,1,9,41);
-insert into recurso values ('01/01/1111 11:11:42','01/01/1111 11:11:42','01/01/1111 11:11:42',2,2,8,42);
-insert into recurso values ('01/01/1111 11:11:43','01/01/1111 11:11:43','01/01/1111 11:11:43',3,3,7,43);
+insert into recurso values ('01/01/1111 11:11:41','01/01/1111 11:11:41','01/01/1111 11:11:41','01/01/1111 11:11:41','01/01/1111 11:11:41',1,1,9,41);
+insert into recurso values ('01/01/1111 11:11:42','01/01/1111 11:11:42','01/01/1111 11:11:42','01/01/1111 11:11:42','01/01/1111 11:11:42',2,2,8,42);
+insert into recurso values ('01/01/1111 11:11:43','01/01/1111 11:11:43','01/01/1111 11:11:43','01/01/1111 11:11:43','01/01/1111 11:11:43',3,3,7,43);
 
 select * from cargo;
-insert into cargo values (51,'01/01/1111 11:11:51',1);
-insert into cargo values (52,'01/01/1111 11:11:51',2);
-insert into cargo values (53,'01/01/1111 11:11:51',3);
+insert into cargo values (51,'01/01/1111 11:11:51',1,51);
+insert into cargo values (52,'01/01/1111 11:11:51',2,52);
+insert into cargo values (53,'01/01/1111 11:11:51',3,53);
 
-insert into cargo values (61,'01/01/1111 11:11:01',4);
-insert into cargo values (62,'01/01/1111 11:11:02',5);
-insert into cargo values (63,'01/01/1111 11:11:03',6);
-insert into cargo values (64,'01/01/1111 11:11:03',7);
+insert into cargo values (61,'01/01/1111 11:11:01',4,61);
+insert into cargo values (62,'01/01/1111 11:11:02',5,62);
+insert into cargo values (63,'01/01/1111 11:11:03',6,63);
+insert into cargo values (64,'01/01/1111 11:11:03',7,64);
 
 select * from usuario;
 insert into usuario values ('alias','01/01/1111 11:11:01','61@email.com','operador','1234',61);
