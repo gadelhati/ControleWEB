@@ -42,3 +42,13 @@ insert into usuario values ('alias','01/01/1111 11:11:01','61@email.com','operad
 insert into usuario values ('alias','01/01/1111 11:11:02','62@email.com','gerente','1234',62);
 insert into usuario values ('alias','01/01/1111 11:11:03','63@email.com','gestor','1234',63);
 insert into usuario values ('alias','01/01/1111 11:11:04','64@email.com','administrador','1234',64);
+
+select * from funcao;
+insert into funcao values (71,'funcao 71');
+insert into funcao values (72,'funcao 72');
+insert into funcao values (73,'funcao 73');
+
+select * from grupo;
+insert into grupo values (81,'#818181','01/01/1181 11:11:01','01/01/1181 11:11:01','nome 81');
+insert into grupo values (82,'#828282','01/01/1182 11:11:01','01/01/1182 11:11:01','nome 82');
+insert into grupo values (83,'#838383','01/01/1183 11:11:01','01/01/1182 11:11:01','nome 83');
