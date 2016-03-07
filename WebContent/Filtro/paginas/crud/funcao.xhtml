@@ -53,10 +53,16 @@
 				<p:panelGrid  columns="1" columnClasses="label,value">
 					<h:outputText value="#{item.id}" ></h:outputText>
 				</p:panelGrid>
+				<p:panelGrid  columns="2" columnClasses="label,value">
+					<h:outputText value="#{item.nome}" ></h:outputText>
+				</p:panelGrid>
 			</p:rowExpansion>
 			
 			<p:column headerText="Id" sortBy="#{item.id}" >
 				<h:outputText value="#{item.id}" ></h:outputText>
+			</p:column>
+			<p:column headerText="Nome" sortBy="#{item.nome}" >
+				<h:outputText value="#{item.nome}" ></h:outputText>
 			</p:column>
 		</p:dataTable>
 		
@@ -67,6 +73,9 @@
 						<p:tooltip showEvent="focus" hideEvent="blur"></p:tooltip>
 						<f:validator validatorId="validarNumero" />
 					</p:inputMask>
+					<p:inputText id="nome" tabindex="2" placeholder="Nome*" value="#{mbFuncao.funcao.nome}" title="Nome" required="true" requiredMessage="Nome Obrigatório" >
+						<f:validator validatorId="validarNome" />
+					</p:inputText>
 					<p:outputLabel value="* campos obrigatórios" />
 					
 					<p:commandButton tabindex="3" value="Inserir" id="inserir" actionListener="#{mbFuncao.inserir}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />

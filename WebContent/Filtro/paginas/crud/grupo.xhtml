@@ -52,11 +52,27 @@
 			<p:rowExpansion>
 				<p:panelGrid  columns="1" columnClasses="label,value">
 					<h:outputText value="#{item.id}" ></h:outputText>
+					<h:outputText value="#{item.nome}" ></h:outputText>
+					<h:outputText value="#{item.criacao}" ></h:outputText>
+					<h:outputText value="#{item.extincao}" ></h:outputText>
+					<h:outputText value="#{item.cor}" ></h:outputText>
 				</p:panelGrid>
 			</p:rowExpansion>
 			
 			<p:column headerText="Id" sortBy="#{item.id}" >
 				<h:outputText value="#{item.id}" ></h:outputText>
+			</p:column>
+			<p:column headerText="Nome" sortBy="#{item.nome}" >
+				<h:outputText value="#{item.nome}" ></h:outputText>
+			</p:column>
+			<p:column headerText="Criação" sortBy="#{item.criacao}" >
+				<h:outputText value="#{item.criacao}" ></h:outputText>
+			</p:column>
+			<p:column headerText="Extinção" sortBy="#{item.extincao}" >
+				<h:outputText value="#{item.extincao}" ></h:outputText>
+			</p:column>
+			<p:column headerText="Cor" sortBy="#{item.cor}" >
+				<h:outputText value="#{item.cor}" ></h:outputText>
 			</p:column>
 		</p:dataTable>
 		
@@ -67,6 +83,12 @@
 						<p:tooltip showEvent="focus" hideEvent="blur"></p:tooltip>
 						<f:validator validatorId="validarNumero" />
 					</p:inputMask>
+					<p:inputText id="nome" tabindex="3" placeholder="Nome*" value="#{mbGrupo.grupo.nome}" title="Nome" required="true" requiredMessage="Nome Obrigatório" >
+						<f:validator validatorId="validarNome" />
+					</p:inputText>
+					<p:calendar id="criacao" tabindex="4" placeholder="Criação*" value="#{mbGrupo.grupo.criacao}" title="Criação" required="true" requiredMessage="Criação Obrigatória" pattern="dd/MM/yyyy" ></p:calendar>
+					<p:calendar id="extincao" tabindex="5" placeholder="Extinção*" value="#{mbGrupo.grupo.extincao}" title="Extinção" required="true" requiredMessage="Extinção Obrigatória" pattern="dd/MM/yyyy" ></p:calendar>
+					<p:colorPicker id="cor" tabindex="6" placeholder="Cor" value="#{mbGrupo.grupo.cor}" title="Cor" />
 					<p:outputLabel value="* campos obrigatórios" />
 					
 					<p:commandButton tabindex="3" value="Inserir" id="inserir" actionListener="#{mbGrupo.inserir}" icon="ui-icon-disk" update="tabela" onclick="PF('dialogo').hide()" />

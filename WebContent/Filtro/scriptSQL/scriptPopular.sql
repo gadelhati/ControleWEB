@@ -23,9 +23,9 @@ insert into ferramenta values (42);
 insert into ferramenta values (43);
 
 select * from recurso;
-insert into recurso values ('01/01/1111 11:11:41','01/01/1111 11:11:41','01/01/1111 11:11:41','01/01/1111 11:11:41','01/01/1111 11:11:41',1,1,9,41);
-insert into recurso values ('01/01/1111 11:11:42','01/01/1111 11:11:42','01/01/1111 11:11:42','01/01/1111 11:11:42','01/01/1111 11:11:42',2,2,8,42);
-insert into recurso values ('01/01/1111 11:11:43','01/01/1111 11:11:43','01/01/1111 11:11:43','01/01/1111 11:11:43','01/01/1111 11:11:43',3,3,7,43);
+insert into recurso values ('01/01/1111 11:11:41','01/01/1111 11:11:41','01/01/1111 11:11:41',1,1,9,41);
+insert into recurso values ('01/01/1111 11:11:42','01/01/1111 11:11:42','01/01/1111 11:11:42',2,2,8,42);
+insert into recurso values ('01/01/1111 11:11:43','01/01/1111 11:11:43','01/01/1111 11:11:43',3,3,7,43);
 
 select * from cargo;
 insert into cargo values (51,'01/01/1111 11:11:51',1,51);
@@ -49,6 +49,6 @@ insert into funcao values (72,'funcao 72');
 insert into funcao values (73,'funcao 73');
 
 select * from grupo;
-insert into grupo values (81,'#818181','01/01/1181 11:11:01','01/01/1181 11:11:01','nome 81');
-insert into grupo values (82,'#828282','01/01/1182 11:11:01','01/01/1182 11:11:01','nome 82');
-insert into grupo values (83,'#838383','01/01/1183 11:11:01','01/01/1182 11:11:01','nome 83');
+insert into grupo values (81,'818181','01/01/1181 11:11:01','01/01/1181 11:11:01','nome 81');
+insert into grupo values (82,'828282','01/01/1182 11:11:01','01/01/1182 11:11:01','nome 82');
+insert into grupo values (83,'838383','01/01/1183 11:11:01','01/01/1182 11:11:01','nome 83');
